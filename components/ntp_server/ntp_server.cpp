@@ -1,4 +1,5 @@
 #include "esphome.h"
+#include <ETH.h>
 #include <EthernetUdp.h>
 
 EthernetUDP Udp;
