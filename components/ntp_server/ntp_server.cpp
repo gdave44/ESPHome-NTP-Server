@@ -1,8 +1,8 @@
 #include "esphome.h"
 #include <WiFi.h>
-#include <WiFiUdp.h>
+#include <EthernetUdp.h>
 
-WiFiUDP Udp;
+EthernetUDP Udp;
 
 #define NTP_PORT 123
 #define NTP_PACKET_SIZE 48
