@@ -22,5 +22,6 @@ async def to_code(config):
     if CORE.is_esp32 and CORE.using_arduino:
         cg.add_library("Ethernet", None)
         cg.add_library("WiFi", None)
+        cg.add_library("SPI", None)
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
