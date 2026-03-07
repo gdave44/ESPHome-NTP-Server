@@ -101,7 +101,7 @@ void processNTP() {
     tempval = timestamp;
 
     // Set refid to IP address if not locked
-    IPAddress myIP = WiFi.localIP();
+    IPAddress myIP = ETH.localIP();
     packetBuffer[12] = myIP[0];
     packetBuffer[13] = myIP[1];
     packetBuffer[14] = myIP[2];
