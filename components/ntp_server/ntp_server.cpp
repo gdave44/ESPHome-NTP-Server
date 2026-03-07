@@ -1,5 +1,4 @@
 #include "esphome.h"
-#include <WiFi.h>
 #include <EthernetUdp.h>
 
 EthernetUDP Udp;
