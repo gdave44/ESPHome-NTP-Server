@@ -130,7 +130,7 @@ void GPSPPSTime::apply_pps_correction_() {
 #endif
   }
 
-  ESP_LOGD(TAG, "PPS #%lu epoch=%ld drift=%lld µs",
+  ESP_LOGI(TAG, "PPS #%lu epoch=%ld drift=%lld µs",
            (unsigned long) this->pps_count_,
            (long) corrected_epoch,
            (long long) this->last_drift_us_);
@@ -138,7 +138,6 @@ void GPSPPSTime::apply_pps_correction_() {
 
 void GPSPPSTime::on_update(TinyGPSPlus &tiny_gps) {
   if (!tiny_gps.time.isValid() || !tiny_gps.date.isValid() ||
-      !tiny_gps.time.isUpdated() || !tiny_gps.date.isUpdated() ||
       tiny_gps.date.year() < 2025) {
     return;
   }
