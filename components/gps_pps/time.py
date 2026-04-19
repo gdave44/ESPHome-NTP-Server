@@ -36,7 +36,7 @@ CONFIG_SCHEMA = time_.TIME_SCHEMA.extend(
             state_class=STATE_CLASS_MEASUREMENT,
         ),
     }
-).extend(cv.polling_component_schema("60s"))
+).extend(cv.polling_component_schema("10s"))
 
 
 async def to_code(config):

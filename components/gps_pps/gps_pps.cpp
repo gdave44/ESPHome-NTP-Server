@@ -40,12 +40,12 @@ void GPSPPSTime::set_pps_time_(time_t epoch, int32_t compensation_us) {
 
 void GPSPPSTime::apply_pps_correction_() {
   if (!this->gps_time_valid_) {
-    ESP_LOGD(TAG, "PPS pulse received but no valid GPS time yet");
+    ESP_LOGI(TAG, "PPS pulse received but no valid GPS time yet");
     return;
   }
 
   if (this->last_gps_epoch_ == 0) {
-    ESP_LOGD(TAG, "PPS pulse skipped, waiting for NMEA epoch");
+    ESP_LOGI(TAG, "PPS pulse skipped, waiting for NMEA epoch");
     return;
   }
 
@@ -171,6 +171,12 @@ void GPSPPSTime::on_update(TinyGPSPlus &tiny_gps) {
 }
 
 void GPSPPSTime::update() {
+  if (!this->pps_synced_) {
+    ESP_LOGI(TAG, "Status: gps_valid=%d coarse_time_set=%d pps_synced=NO pps_pulses=%lu",
+             (int) this->gps_time_valid_, (int) this->has_gps_time_,
+             (unsigned long) this->pps_count_);
+  }
+
   if (this->clock_offset_sensor_ != nullptr && this->pps_synced_) {
     this->clock_offset_sensor_->publish_state(static_cast<float>(this->last_clock_offset_us_));
   }
