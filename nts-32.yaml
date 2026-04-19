@@ -1,0 +1,80 @@
+substitutions:
+  plug_name: nts-32
+  restore_mode: ALWAYS_ON
+
+esphome:
+  name: ${plug_name}
+  friendly_name: ${plug_name}
+
+esp32:
+  board: esp-wrover-kit
+  framework:
+    type: arduino
+
+ethernet:
+  type: LAN8720
+  mdc_pin: GPIO23
+  mdio_pin: GPIO18
+  clk_mode: GPIO0_IN
+  phy_addr: 1
+  power_pin: GPIO16
+  use_address: ${plug_name}.hamnet.lan
+
+logger:
+  logs:
+    component: ERROR
+
+ota:
+  - platform: esphome
+
+api:
+  encryption:
+    key: !secret enc_key
+
+web_server:
+  port: 80
+  include_internal: true
+  auth:
+    username: admin
+    password: !secret web_pass
+
+uart:
+  rx_pin: 3
+  tx_pin: 1
+  baud_rate: 9600
+
+gps:
+  latitude:
+    name: "Latitude"
+  longitude:
+    name: "Longitude"
+  altitude:
+    name: "Altitude"
+  satellites:
+    name: "Satellites"
+
+time:
+  - platform: gps_pps
+    id: gps_time
+    pps_pin: GPIOX       # ← replace with your actual PPS GPIO
+    clock_offset:
+      name: "Clock Offset"
+    pps_drift:
+      name: "PPS Drift"
+
+ntp_server:
+  time_id: gps_time
+
+text_sensor:
+  - platform: template
+    name: "Current Time"
+    id: current_time
+    update_interval: 10s
+    lambda: return id(gps_time).now().strftime("%H:%M");
+
+external_components:
+  source:
+    type: git
+    url: https://github.com/gdave44/ESPHome-NTP-Server
+  refresh: 30s
+  components: [ ntp_server, gps_pps ]
