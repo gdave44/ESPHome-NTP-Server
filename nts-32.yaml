@@ -7,7 +7,7 @@ esphome:
   friendly_name: ${plug_name}
 
 esp32:
-  board: esp-wrover-kit
+  board: wt32-eth01
   framework:
     type: arduino
 
@@ -56,7 +56,7 @@ gps:
 time:
   - platform: gps_pps
     id: gps_time
-    pps_pin: GPIOX       # ← replace with your actual PPS GPIO
+    pps_pin: GPIO33
     clock_offset:
       name: "Clock Offset"
     pps_drift:

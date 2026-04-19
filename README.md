@@ -18,9 +18,9 @@ local network at stratum 1.
 
 ## Hardware
 
-- ESP32 with Ethernet (tested on esp-wrover-kit + LAN8720)
-- u-blox GPS module (or any module with NMEA over UART + PPS output)
-- PPS pin wired to any available ESP32 GPIO
+- WT32-ETH01 (ESP32 + LAN8720 Ethernet)
+- u-blox NEO-M8 GPS module (or any module with NMEA over UART + PPS output)
+- PPS pin wired to any available ESP32 GPIO (GPIO33 in the reference build)
 
 ## Basic Usage (GPS + PPS)
 
